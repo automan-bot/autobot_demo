@@ -13,7 +13,9 @@ import { camelCase } from "lodash-es";
 import copy from "rollup-plugin-copy";
 const libraryName = "app";
 //这里的依赖会被打包进生产包内
-let whiteListedModules = ["axios", "websocket"];
+let whiteListedModules = [
+  /* "axios"*/
+];
 export default (env = "production") => {
   return defineConfig({
     input: path.join(__dirname, "..", "src", "index.ts"),
