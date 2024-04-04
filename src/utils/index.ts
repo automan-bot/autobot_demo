@@ -1,3 +1,4 @@
+import { IGesture } from "android-bot";
 import * as cheerio from "cheerio";
 /**
  * 防抖动
@@ -77,10 +78,10 @@ export function getScreenDocument(xmlString: string) {
   });
   return doc;
 }
-export function querySelectorAll(xmlString: string, selector: string) {
+export function querySelectorAll(xmlString: string, selector: string): IItem[] {
   let startTime = Date.now();
-  const $ = this.getScreenDocument2();
-  let nodes = [];
+  const $ = getScreenDocument(xmlString);
+  let nodes: any = [];
   try {
     nodes = $(`${selector}`);
   } catch (e) {
@@ -90,8 +91,7 @@ export function querySelectorAll(xmlString: string, selector: string) {
   let result = [];
   for (let i = 0; i < nodes.length; i++) {
     let item = nodes[i];
-
-    let bounds = $(item).attr("bound");
+    let bounds: any = $(item).attr("bound");
     let text = $(item).attr("text");
     bounds = bounds.split(",").map((item) => {
       let wz = parseInt(item);
@@ -122,4 +122,61 @@ export function querySelectorAll(xmlString: string, selector: string) {
     `用时${execTime}ms,选择器${selector},查找到的元素个数${result.length}`
   );
   return result;
+}
+
+//这里为了适配autojs PC版的生成的代码，和autox.js参数保持一致
+export function convertGesturePara(...args: any): IGesture {
+  if (args.length < 2) throw new Error("gesture函数至少需要2个参数");
+  let para: IGesture = {
+    duration: 0,
+    points: [],
+  };
+  if (typeof args[0] != "number") {
+    throw new Error("gesture函数第一个参数必须为number类型");
+  }
+  para.duration = args[0];
+  for (let i = 1; i < args.length; i++) {
+    let point = args[i];
+    if (point.length != 2) {
+      throw new Error("point必须同时包含x，y");
+    }
+    para.points.push({
+      x: point[0],
+      y: point[1],
+    });
+  }
+  return para;
+}
+//这里为了适配autojs PC版的生成的代码，和autox.js参数保持一致
+export function convertGesturesPara(...args: any): IGesture[] {
+  if (!arguments.length) throw new Error("gestures函数至少需要1个参数");
+  const resultPara: IGesture[] = [];
+  for (let gesture of args) {
+    let para = {
+      delay: 0,
+      duration: 0,
+      points: [],
+    };
+    let startIndex = 2;
+    if (typeof gesture[1] == "number") {
+      para.delay = gesture[0];
+      para.duration = gesture[1];
+      startIndex = 2;
+    } else {
+      para.duration = gesture[0];
+      startIndex = 1;
+    }
+    for (let i = startIndex; i < gesture.length; i++) {
+      let point = gesture[i];
+      if (point.length != 2) {
+        throw new Error("point必须同时包含x，y");
+      }
+      para.points.push({
+        x: point[0],
+        y: point[1],
+      });
+    }
+    resultPara.push(para);
+  }
+  return resultPara;
 }

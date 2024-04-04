@@ -13,6 +13,8 @@
   "author": "AutoMan <autojs@126.com>",
   "scripts": {
     "start": "esno src/index.ts",
+    "test:ws": "esno src/ws.ts",
+    "prod": "esno dist/app.js",
     "build": "cross-env BUILD_TARGET=clean esno .build/build.ts",
     "clean": "cross-env BUILD_TARGET=onlyClean esno .build/build.ts"
   },
@@ -31,7 +33,6 @@
     "cross-env": "^7.0.3",
     "del": "^7.0.0",
     "esno": "^0.16.3",
-    "form-data": "^4.0.0",
     "listr2": "^5.0.5",
     "lodash-es": "^4.17.21",
     "parcel": "^2.8.0",
@@ -45,6 +46,7 @@
   "license": "MIT",
   "dependencies": {
     "android-bot": "^2.8.7",
-    "cheerio": "^1.0.0-rc.12"
+    "cheerio": "^1.0.0-rc.12",
+    "form-data": "^4.0.0"
   }
 }
