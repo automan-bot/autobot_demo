@@ -1,0 +1,50 @@
+{
+  "name": "autobot_demo",
+  "version": "0.0.1",
+  "description": "",
+  "keywords": [
+    "autobot_demo"
+  ],
+  "main": "dist/app.js",
+  "typings": "dist/app.d.ts",
+  "files": [
+    "dist"
+  ],
+  "author": "AutoMan <autojs@126.com>",
+  "scripts": {
+    "start": "esno src/index.ts",
+    "build": "cross-env BUILD_TARGET=clean esno .build/build.ts",
+    "clean": "cross-env BUILD_TARGET=onlyClean esno .build/build.ts"
+  },
+  "devDependencies": {
+    "@rollup/plugin-alias": "^5.1.0",
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-replace": "^5.0.5",
+    "@rollup/plugin-typescript": "^11.1.5",
+    "@types/fs-extra": "^9.0.13",
+    "@types/node": "^18.7.14",
+    "buffer": "^5.7.1",
+    "cfonts": "^3.1.1",
+    "chalk": "5.0.1",
+    "cross-env": "^7.0.3",
+    "del": "^7.0.0",
+    "esno": "^0.16.3",
+    "form-data": "^4.0.0",
+    "listr2": "^5.0.5",
+    "lodash-es": "^4.17.21",
+    "parcel": "^2.8.0",
+    "process": "^0.11.10",
+    "rollup": "^3.2.5",
+    "rollup-plugin-copy": "^3.4.0",
+    "rollup-plugin-dts": "^6.1.0",
+    "rollup-plugin-esbuild": "^6.1.0",
+    "typescript": "^4.8.2"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "android-bot": "^2.8.7",
+    "cheerio": "^1.0.0-rc.12"
+  }
+}
